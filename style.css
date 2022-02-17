@@ -82,6 +82,9 @@
         color: var(--black);
         margin: 0 1rem;
     }
+    a{
+        z-index:100;
+    }
     
     header .navbar a:hover {
         color: var(--orange);
