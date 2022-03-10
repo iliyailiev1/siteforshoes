@@ -8,7 +8,7 @@
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- custom css file link -->
     <link rel="stylesheet" href="style.css">
 
@@ -31,11 +31,12 @@
             <a href="#review">review</a>
         </nav>
 
-        <div class="icons">
+        <div class="icons mr-auto">
 
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-shopping-cart" id="cart-icon"></a>
-            <a href="#" class="fas fa-user"></a>
+            <a href="#" class="fas fa-shopping-cart" id="cart-icon nav-link"></a>
+            <a href="login.html" id="userlink" class="fas fa-user nav-link"></a>
+            <a href="#" id="signoutlnk" class="fas fa-share nav-link"></a>
+ 
             <div class="cart">
                 <h2 class="cart-title">Your Cart</h2>
                 <div class="cart-content">
@@ -156,7 +157,7 @@
                     <a href="#" class="fas fa-share"></a>
                     <a href="#" class="fas fa-eye"></a>
                 </div>
-                <img src="images/obuvka1.png" alt=" " class="product-img">
+                <img src="images/obuvka1.png" alt=" " id="item1" class="product-img">
                 <div class="content">
                     <h3 class="product-title">nike air max plus</h3>
                     <div> <span  class="price">$199.99</span> <span class="oldPrice">$279.99</span></div>
@@ -484,11 +485,66 @@
         </div>
 
     </section>
+<h3 id="hh"></h3>
+<script>
+
+let userlink = document.getElementById('userlink');
+let signoutlink = document.getElementById('signoutlink');
+let header = document.getElementById('hh');
+var currentUse = null;
+
+function getUsername(){
+    let keepLoggedIn = localStorage.getItem('keepLoggedIn');
+
+    if(keepLoggedIn == 'yes'){
+        currentUser = JSON.parse(localStorage.getItem('user'));
+    }
+    else{
+        currentUser = JSON.parse(sessionStorage.getItem('user'));
+    }
+}
+
+function Signout(){
+    sessionStorage.removeItem('user');
+    localStorage.removeItem('user');
+    localStorage.removeItem('keepLoggedIn');
+    window.location = 'index.html';
+}
+
+window.onload = function(){
+    getUsername();
+    if(currentUser == null){
+        userlink.innerText = 'Create New Account';
+        userlink.classList.replace('nav-link','btn');
+        userlink.classList.add('btn-primary');
+        userlink.href = 'register.html';
 
 
+        signoutlink.innerText = 'Login';
+        signoutlink.classList.replace('nav-link','btn');
+        signoutlink.classList.add('btn-success');
+        signoutlink.href = 'login.html';
+
+    }else{
+        userlink.innerText = currentUser.username;
+        haeder.innerText = 'welcome' + currentUser.fullname
+        userlink.classList.replace('btn', 'nav-link');
+        userlink.classList.add('btn-primary');
+        userlink.href = '#';
+
+        signoutlink.innerText = 'Sign Out';
+        signoutlink.classList.replace('btn', 'nav-link');
+        signoutlink.classList.add('btn-success');
+        signoutlink.href = 'javascript:Signout()';
+
+
+    }
+}
+
+</script>
     <!-- custom js file link  -->
     <script src="js.js"></script>
-
+    
 </body>
 
 </html>
